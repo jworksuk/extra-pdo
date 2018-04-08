@@ -26,7 +26,7 @@ cache:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS extra-pdo;'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS "extra-pdo";'
 
 script:
   - vendor/bin/phpcs --standard=psr2 src/
