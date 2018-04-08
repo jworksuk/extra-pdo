@@ -1,0 +1,25 @@
+{
+    "name": "jworksuk/pdo-connection",
+    "authors": [
+        {
+            "name": "Jesse James",
+            "email": "me@jworksuk.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JWorksUK\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JWorksUK\\": "tests/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "codedungeon/phpunit-result-printer": "0.8.2",
+        "symfony/var-dumper": "^3.4"
+    }
+}
