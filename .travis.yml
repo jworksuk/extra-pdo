@@ -7,8 +7,6 @@ env:
  - DB_HOST=127.0.0.1 DB_NAME=extra-pdo DB_USER=travis DB_PASS=""
 
 php:
-  - 5.5
-  - 5.6
   - 7.0
   - 7.1
   - 7.2
@@ -26,7 +24,7 @@ cache:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS "extra-pdo";'
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS `extra-pdo`;'
 
 script:
   - vendor/bin/phpcs --standard=psr2 src/
