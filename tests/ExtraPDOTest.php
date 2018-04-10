@@ -113,4 +113,45 @@ class ExtraPDOTest extends TestCase
         Assert::assertTrue(is_array($rows));
         Assert::assertCount(10, $rows);
     }
+
+    /**
+     * @dataProvider extraPdoProvider
+     * @test
+     * @param ExtraPDO $pdo
+     */
+    public function extraPdoStatementNoResults(ExtraPDO $pdo)
+    {
+        $pdo->exec(file_get_contents(__DIR__.'/test.sql'));
+
+        $noRow = $pdo
+            ->executeStatement('SELECT * FROM todos WHERE id=:id', [
+                'id' => 'IdNotInDatabase'
+            ])
+            ->fetchAndMap(function ($row) {
+                return new Model(
+                    $row['id'],
+                    $row['name'],
+                    $row['list_id'],
+                    new \DateTime($row['updated_at']),
+                    new \DateTime($row['created_at'])
+                );
+            });
+        Assert::assertFalse($noRow);
+
+        $noRows = $pdo
+            ->executeStatement('SELECT * FROM todos WHERE list_id=:listId', [
+                'listId' => 'YouWontFindAnything'
+            ])
+            ->fetchAllAndMap(function ($row) {
+                return new Model(
+                    $row['id'],
+                    $row['name'],
+                    $row['list_id'],
+                    new \DateTime($row['updated_at']),
+                    new \DateTime($row['created_at'])
+                );
+            });
+        Assert::assertTrue(is_array($noRows));
+        Assert::assertEmpty($noRows);
+    }
 }

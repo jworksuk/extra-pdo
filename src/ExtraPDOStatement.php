@@ -16,7 +16,13 @@ class ExtraPDOStatement extends PDOStatement
      */
     public function fetchAndMap(callable $function)
     {
-        return $function($this->fetch());
+        $row = $this->fetch();
+
+        if ($row) {
+            return $function($row);
+        }
+
+        return $row;
     }
 
     /**
